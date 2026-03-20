@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dotenv from 'dotenv';
 import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { RowDataPacket, FieldPacket } from 'mysql2/promise';
-
-
-
-export async function GET() {
-    const [rows] = await pool.query('SELECT * FROM usuarios') as [RowDataPacket[], FieldPacket[]];
-    return NextResponse.json(rows);
-}
 
 export async function POST(request: NextRequest) {
     try {
