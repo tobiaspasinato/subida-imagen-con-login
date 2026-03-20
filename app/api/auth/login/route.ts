@@ -17,18 +17,21 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ message: 'User does not exist' }, { status: 400 });
         }
 
-        // Hash the password and compare with stored hash
+        // Compare the provided password with the stored hash
         const validPassword = await bcrypt.compare(password, user[0].password_hash);
         if (!validPassword) {
             return NextResponse.json({ message: 'Invalid email or password' }, { status: 400 });
         }
 
+        // Verifica el jwt_secret existe en las variables de entorno
         if (!process.env.JWT_SECRET) {
             return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
         }
 
+        // Generate JWT token
         const token = jwt.sign({ email: user[0].email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
+        // Set the token in an HTTP-only cookie
         const response = NextResponse.json({ message: 'Login successful' });
         response.cookies.set('token', token, {
             httpOnly: true,
