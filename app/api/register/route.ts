@@ -1,4 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+import dotenv from 'dotenv';
+import pool from '@/lib/db';
+
+dotenv.config();
+
+export async function GET() {
+    const [rows] = await pool.query('SELECT * FROM productos');
+    return Response.json(rows);
+}
 
 export async function POST(request: NextRequest) {
     try {
