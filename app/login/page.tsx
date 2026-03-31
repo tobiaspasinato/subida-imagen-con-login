@@ -28,37 +28,16 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{
-      background: 'linear-gradient(135deg, #2d1b4e 0%, #3d2d6b 50%, #1e3c72 100%)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minHeight: '100vh',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    }}>
-      <div style={{
-        background: 'rgba(255, 255, 255, 0.1)',
-        backdropFilter: 'blur(10px)',
-        borderRadius: '24px',
-        padding: '2.5rem',
-        width: '90%',
-        maxWidth: '380px',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-      }}>
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-[#2d1b4e] via-[#3d2d6b] to-[#1e3c72]">
+      <div className="bg-white/10 backdrop-blur-[10px] rounded-3xl p-10 w-11/12 max-w-sm shadow-2xl border border-white/10">
         <form onSubmit={handleSubmit}>
           {error && (
-            <p style={{
-              color: '#ff6b6b',
-              marginBottom: '1.5rem',
-              fontSize: '0.875rem',
-              textAlign: 'center',
-            }}>
+            <p className="text-red-400 text-xs text-center mb-6">
               {error}
             </p>
           )}
 
-          <div style={{ marginBottom: '1.5rem' }}>
+          <div className="mb-6">
             <input
               id="email"
               type="email"
@@ -66,28 +45,11 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{
-                width: '100%',
-                padding: '0.875rem 1rem',
-                fontSize: '0.95rem',
-                border: 'none',
-                borderBottom: '2px solid rgba(255, 255, 255, 0.3)',
-                background: 'transparent',
-                color: 'white',
-                outline: 'none',
-                transition: 'border-color 0.3s ease',
-                boxSizing: 'border-box',
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.borderBottomColor = 'rgba(255, 255, 255, 0.6)';
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderBottomColor = 'rgba(255, 255, 255, 0.3)';
-              }}
+              className="w-full px-4 py-3.5 text-sm bg-transparent border-b-2 border-white/30 text-white placeholder-white/50 focus:border-white/60 outline-none transition-colors"
             />
           </div>
 
-          <div style={{ marginBottom: '2rem' }}>
+          <div className="mb-8">
             <input
               id="password"
               type="password"
@@ -95,56 +57,18 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{
-                width: '100%',
-                padding: '0.875rem 1rem',
-                fontSize: '0.95rem',
-                border: 'none',
-                borderBottom: '2px solid rgba(255, 255, 255, 0.3)',
-                background: 'transparent',
-                color: 'white',
-                outline: 'none',
-                transition: 'border-color 0.3s ease',
-                boxSizing: 'border-box',
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.borderBottomColor = 'rgba(255, 255, 255, 0.6)';
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderBottomColor = 'rgba(255, 255, 255, 0.3)';
-              }}
+              className="w-full px-4 py-3.5 text-sm bg-transparent border-b-2 border-white/30 text-white placeholder-white/50 focus:border-white/60 outline-none transition-colors"
             />
           </div>
+
           <button
             type="submit"
             disabled={loading}
-            style={{
-              width: '100%',
-              padding: '0.875rem',
-              fontSize: '0.95rem',
-              fontWeight: '600',
-              letterSpacing: '0.05em',
-              background: loading ? 'rgba(147, 51, 234, 0.5)' : 'linear-gradient(135deg, #6b3dd6 0%, #3b82f6 100%)',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              opacity: loading ? 0.6 : 1,
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-              boxShadow: '0 4px 15px rgba(107, 61, 214, 0.4)',
-            }}
-            onMouseEnter={(e) => {
-              if (!loading) {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(107, 61, 214, 0.6)';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (!loading) {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 15px rgba(107, 61, 214, 0.4)';
-              }
-            }}
+            className={`w-full py-3.5 font-semibold tracking-widest rounded-lg text-white transition-all duration-200 ${
+              loading
+                ? 'bg-purple-600/50 cursor-not-allowed opacity-60'
+                : 'bg-gradient-to-r from-[#6b3dd6] to-[#3b82f6] hover:shadow-lg hover:shadow-purple-500/60 hover:-translate-y-0.5 cursor-pointer'
+            } shadow-lg shadow-purple-500/40`}
           >
             {loading ? 'CARGANDO...' : 'LOGIN'}
           </button>
