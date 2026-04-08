@@ -6,8 +6,7 @@ dotenv.config();
 
 export async function GET(request: NextRequest) {
     // trae el token del header Authorization
-    const authHeader = request.headers.get('Authorization');
-    const token = authHeader?.replace('Bearer ', '');
+    const token = request.cookies.get('token')?.value;
 
     // Si no hay token, el usuario no está autenticado
     if (!token) {

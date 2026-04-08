@@ -12,13 +12,25 @@ export default function HomePage() {
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setIsUploading(true);
-      console.log('Archivo seleccionado:', file);
-      setTimeout(() => setIsUploading(false), 1000);
-    }
-  };
+  const file = e.target.files?.[0];
+  if (file) {
+    setIsUploading(true);
+    
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const bytes = new Uint8Array(arrayBuffer);
+      const base64String = btoa(String.fromCharCode(...bytes));
+      await fetch('/api/imagenes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ base64: base64String })
+        });
+    };
+    reader.readAsArrayBuffer(file);
+    setTimeout(() => setIsUploading(false), 1000);
+  }
+};
 
   return (
     <div>

@@ -12,7 +12,8 @@ export function useMe() {
         queryKey: ['user', 'me'],
         queryFn: getMe
     });
-
+    
+    console.log('useMe - data:', data, 'isSuccess:', isSuccess, 'error:', error, 'isError:', isError);
     useEffect(() => {
         if (isSuccess) {
             console.log('Usuario obtenido exitosamente:', data);

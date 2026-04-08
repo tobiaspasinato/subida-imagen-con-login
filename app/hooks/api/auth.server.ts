@@ -11,16 +11,19 @@ interface User {
 }
 
 export async function getMe(): Promise<User> {
-    const token = (await cookies()).get('token')?.value
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+    const cookieStore = await cookies()
+    const token = cookieStore.get('token')?.value
 
     const response = await fetch(`${baseUrl}/api/auth/me`, {
+        method: 'GET',
         headers: {
-            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Cookie': `token=${token}` // ← Envía la cookie aquí
         },
+        cache: 'no-store'
     })
 
     if (!response.ok) throw new Error('No autenticado')
-
     return response.json() as Promise<User>
 }
